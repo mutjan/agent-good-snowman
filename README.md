@@ -9,10 +9,6 @@ therefore only exposes two primitives:
 - read the current game/save state;
 - send real keyboard input to the running game.
 
-It intentionally does not ship level solvers, recorded routes, checked route
-replayers, save patchers, teleport tools, LLDB probes, memory scanners, or
-screenshot-based state readers.
-
 ## Requirements
 
 - macOS.
@@ -91,8 +87,8 @@ Supported move names include `left`, `right`, `up`, `down`, `undo`/`z`,
 
 ## Safety And Scope
 
-- No LLDB, debugger attachment, pointer probing, or process memory reads.
-- No bundled solutions, route databases, or solver logic.
-- No save editing. State reading is read-only.
+- State reading is read-only.
+- Actions are sent as normal keyboard input.
+- Trying to use process probes can make the game process stop responding.
 - Generated binaries, local configs, pycache, and local save artifacts are
   ignored by git.
