@@ -1,0 +1,8 @@
+{
+  "game_app": "~/Library/Application Support/Steam/steamapps/common/A Good Snowman Is Hard To Build/Snowman.app",
+  "save_dir": "~/Library/Application Support/A Good Snowman Is Hard To Build",
+  "app_name": "Snowman",
+  "input_delay": 0.45,
+  "hold_ms": 115,
+  "pre_delay": 0.8
+}

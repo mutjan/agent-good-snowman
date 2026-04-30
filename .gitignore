@@ -1,0 +1,12 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Local machine configuration and save artifacts.
+snowman_config.json
+progress*.json
+local/
+
+# Generated helper binary; the C source is tracked.
+scripts/snowman_cgevent_keys
+scripts/__pycache__/
