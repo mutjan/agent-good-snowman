@@ -204,7 +204,7 @@ def read_state(config: object, progress: Path | None, resources: Path | None) ->
         progress=progress or config.progress_path,
         resources=resources or config.resources_dir,
         level=None,
-        no_grid=True,
+        no_grid=False,
     )
     return build_state(args)
 
