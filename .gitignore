@@ -6,6 +6,7 @@ __pycache__/
 snowman_config.json
 progress*.json
 local/
+kimi-export*.md
 
 # Generated helper binary; the C source is tracked.
 scripts/snowman_cgevent_keys

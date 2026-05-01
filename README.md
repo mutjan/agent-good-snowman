@@ -60,11 +60,36 @@ Read machine-readable state:
 python3 scripts/snowman_read_state.py --json
 ```
 
+Read a concise state summary:
+
+```bash
+python3 scripts/snowman_read_state.py --compact --explain
+```
+
+The state output includes agent-facing notes. In particular, `current_objects`
+contains saved live entities, while `initial_balls` is static level reference
+data. Static entries use `marker`, `label`, and `stack_bottom_to_top`; the
+marker is not a numeric snowball size. For example, level 0 (`Lucy`) starts with
+marker `3`, meaning a small snowball stacked on a medium snowball. After reading
+an incomplete level, continue with a small observed action batch instead of
+stopping at inspection. If a pushed stack later appears as a live `small` object
+plus a `small_on_medium...` grass view, treat that as stack transition state.
+
 Send movement keys:
 
 ```bash
 python3 scripts/snowman_send_keys.py 'left,up*2,right'
 ```
+
+Send movement keys and show the saved-state change after each key:
+
+```bash
+python3 scripts/snowman_send_keys.py 'left,up*2,right' --observe
+```
+
+When observing pushes or animations, the script polls the save file briefly so
+slow state updates are less likely to be reported as no-ops. Use
+`--observe-timeout` or `--observe-poll` to tune this.
 
 Preview parsed input without sending keys:
 
@@ -74,6 +99,10 @@ python3 scripts/snowman_send_keys.py 'left,up*2,right' --dry-run
 
 Supported move names include `left`, `right`, `up`, `down`, `undo`/`z`,
 `reset`/`r`, `confirm`/`space`, `enter`, and `escape`.
+
+The default input method targets the `Snowman` process through System Events.
+Alternative methods are available with `--method cgevent` and
+`--method applescript`.
 
 ## Files
 
