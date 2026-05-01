@@ -197,6 +197,8 @@ def state_notes() -> list[str]:
         "initial_balls.marker is a resource marker, not a numeric size. Use label and stack_bottom_to_top for known markers.",
         "Level 0 (Lucy) starts with marker 3: a medium snowball with a small snowball stacked on top.",
         "After pushing a marker 3 stack, seeing a live small object plus a small_on_medium grass view is expected stack transition state, not a medium ball shrinking.",
+        "Bumping walls, completed snowmen, or other immovable objects can enter a transient push/hug state. This is not stored in progress.json.",
+        "After a transient push/hug interaction, the next direction key may only release that pose instead of moving the player.",
         "entities are the saved live objects. The player and moved balls appear there; unchanged initial balls may be absent until touched.",
         "grass entities record consumed snow/roll history. They are useful context but are not movable objects.",
         "grid digits are static initial ball markers. Treat them as a level reference, not as proof of current live occupancy after any move.",
@@ -208,6 +210,7 @@ def agent_guidance(state: dict[str, Any] | None = None) -> list[str]:
         "Do not stop after reading state when the current level is incomplete.",
         "Choose a small candidate move batch and run: python3 scripts/snowman_send_keys.py '<moves>' --observe",
         "Use one to five moves per observed batch while learning mechanics; increase --observe-timeout for pushes or animations.",
+        "If the last key bumped a wall or completed snowman, budget one direction key for releasing the transient push/hug pose.",
         "This harness intentionally provides no solution route or solver output.",
     ]
     if state is not None and state.get("current_completed"):
@@ -417,7 +420,7 @@ def diff_state_lines(before: dict[str, Any], after: dict[str, Any]) -> list[str]
     if not lines:
         return [
             "no saved state change",
-            "hint: the move may be blocked, may only have changed transient push state, or may need a longer --observe-timeout.",
+            "hint: the move may be blocked, may only have changed transient push/hug state, or may need a longer --observe-timeout.",
         ]
     return lines
 

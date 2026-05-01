@@ -74,6 +74,9 @@ marker `3`, meaning a small snowball stacked on a medium snowball. After reading
 an incomplete level, continue with a small observed action batch instead of
 stopping at inspection. If a pushed stack later appears as a live `small` object
 plus a `small_on_medium...` grass view, treat that as stack transition state.
+Interactions with walls, completed snowmen, and other immovable objects can also
+put the player in a transient push/hug pose that is not stored in `progress.json`;
+the next direction key may only release that pose.
 
 Send movement keys:
 
@@ -89,7 +92,9 @@ python3 scripts/snowman_send_keys.py 'left,up*2,right' --observe
 
 When observing pushes or animations, the script polls the save file briefly so
 slow state updates are less likely to be reported as no-ops. Use
-`--observe-timeout` or `--observe-poll` to tune this.
+`--observe-timeout` or `--observe-poll` to tune this. A no-op after bumping a
+wall or hugging a completed snowman may still be a transient interaction state
+rather than a failed keypress.
 
 Preview parsed input without sending keys:
 
